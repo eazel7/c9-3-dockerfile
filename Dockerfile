@@ -13,15 +13,16 @@ USER cloud9
 WORKDIR /home/cloud9/
 
 # Needed until virtualenv is pulled upstream.
-RUN git clone -b gyp-fix https://github.com/ClashTheBunny/install.git c9install
+ENV version 9c55eb1
+RUN git clone -b node-early-ref https://github.com/ClashTheBunny/install.git c9install
 RUN c9install/install.sh
 
 RUN git clone https://github.com/c9/core.git c9sdk
 
-ENV NODE_PATH=/home/cloud9/.c9/node_modules
-
 WORKDIR /home/cloud9/c9sdk
 RUN scripts/install-sdk.sh
+
+ENV NODE_PATH=/home/cloud9/.c9/node_modules
 
 ENTRYPOINT ["/home/cloud9/.c9/node/bin/node", "server"]
 CMD ["-w", "/workspace", "-p", "8181"]
