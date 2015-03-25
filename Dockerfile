@@ -8,12 +8,14 @@ RUN apt-get install -q -y git curl build-essential python software-properties-co
 RUN echo %sudo        ALL=NOPASSWD: ALL >> /etc/sudoers
 RUN useradd -ms /bin/bash cloud9
 RUN adduser cloud9 sudo
+RUN mkdir /workspace
+RUN chown cloud9:cloud9 /workspace
 
 USER cloud9
 WORKDIR /home/cloud9/
 
 # Needed until virtualenv is pulled upstream.
-ENV version 9c55eb1
+ENV version c15c243
 RUN git clone -b node-early-ref https://github.com/ClashTheBunny/install.git c9install
 RUN c9install/install.sh
 
