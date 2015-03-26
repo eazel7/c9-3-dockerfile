@@ -1,7 +1,6 @@
 FROM ubuntu:14.10
 MAINTAINER Randall Mason <randall@mason.ch>
 
-ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y git curl build-essential python software-properties-common npm virtualenv nodejs-legacy pwgen tmux ssh
 
