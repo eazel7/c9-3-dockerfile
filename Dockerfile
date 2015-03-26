@@ -3,7 +3,7 @@ MAINTAINER Randall Mason <randall@mason.ch>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
-RUN apt-get install -q -y git curl build-essential python software-properties-common npm virtualenv nodejs-legacy pwgen tmux
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y git curl build-essential python software-properties-common npm virtualenv nodejs-legacy pwgen tmux ssh
 
 RUN echo %sudo        ALL=NOPASSWD: ALL >> /etc/sudoers
 RUN useradd -ms /bin/bash cloud9
