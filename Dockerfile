@@ -12,19 +12,16 @@ RUN mkdir /workspace
 RUN chown cloud9:cloud9 /workspace
 
 USER cloud9
-WORKDIR /home/cloud9/
+WORKDIR /home/cloud9
 
-# Needed until virtualenv is pulled upstream.
-ENV version c15c243
-RUN git clone -b node-early-ref https://github.com/ClashTheBunny/install.git c9install
-RUN c9install/install.sh
+RUN git clone -b node-early-ref https://github.com/ClashTheBunny/install.git c9install && c9install/install.sh
 
 RUN git clone https://github.com/c9/core.git c9sdk
 
 WORKDIR /home/cloud9/c9sdk
-RUN scripts/install-sdk.sh
-
+ENV PATH=/home/cloud9/.c9/node/bin:$PATH
 ENV NODE_PATH=/home/cloud9/.c9/node_modules
+RUN scripts/install-sdk.sh && rm configs/api.standalone.js
 
-ENTRYPOINT ["/home/cloud9/.c9/node/bin/node", "server"]
-CMD ["-w", "/workspace", "-p", "8181"]
+ENTRYPOINT ["node", "server"]
+CMD ["-w", "/workspace", "-p", "8181", "--collab", "-a", ":", "-l", "0.0.0.0"]
