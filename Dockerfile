@@ -18,7 +18,7 @@ RUN git clone https://github.com/c9/core.git c9sdk
 WORKDIR /home/cloud9/c9sdk
 ENV PATH=/home/cloud9/.c9/node/bin:$PATH
 ENV NODE_PATH=/home/cloud9/.c9/node_modules
-RUN scripts/install-sdk.sh && rm configs/api.standalone.js
+RUN scripts/install-sdk.sh
 
 ENTRYPOINT ["node", "server"]
 CMD ["-w", "/workspace", "-p", "8181", "--collab", "-a", ":", "-l", "0.0.0.0"]
